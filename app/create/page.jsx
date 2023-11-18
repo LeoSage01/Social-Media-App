@@ -20,37 +20,37 @@ const page = () => {
     setFile(base64);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
 
-    const post = {
-      username,
-      body,
-      file,
-    };
+  //   const post = {
+  //     username,
+  //     body,
+  //     file,
+  //   };
 
-    if(post.file === ""){
-      const res = await fetch(`${API_BASE_URL}/post`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(post),
-      });
-    } else {
-      const res = await fetch(`${API_BASE_URL}/createpost`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(post),
-      });
+  //   if(post.file === ""){
+  //     const res = await fetch(`${API_BASE_URL}/post`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(post),
+  //     });
+  //   } else {
+  //     const res = await fetch(`${API_BASE_URL}/createpost`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(post),
+  //     });
 
-    }
+  //   }
 
-    if (res.status === 201) {
-        router.refresh()
-        router.push('/posts')
-    }
+  //   if (res.status === 201) {
+  //       router.refresh()
+  //       router.push('/posts')
+  //   }
   
-  };
+  // };
 
   
 
@@ -104,7 +104,7 @@ const page = () => {
               <button
                 className={styles.btn}
                 type="submit"
-                onClick={handleLogin}
+                onClick={console.log('hjk')}
               >
                 {isLoading && <span>Posting...</span>}
                 {!isLoading && <span>Post</span>}

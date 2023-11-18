@@ -1,52 +1,46 @@
-import { notFound } from "next/navigation"
-import axios from 'axios';
+import { notFound } from "next/navigation";
+import axios from "axios";
 
-import styles from "../styles/post.module.css";
+import styles from "../../styles/post.module.css";
 
-export  const dynamicParams = true
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-  const users = response.data;
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
 
-  return users.map((user) => ({
-    id: user.id
+  const users = await res.json();
+
+  return users.map((users) => ({
+    id: users.id,
   }));
 }
 
-async function getPost(id) {
+async function getUser(id) {
   // initiate delay
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
-  try {
-    const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`, {
-      
-    });
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+    next: {
+      revalidate: 60,
+    },
+  });
 
-    return response.data;
-
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response && error.response.status === 404) {
-      // Handle 404 error
-      notFound();
-    } else {
-      // Handle other errors
-      console.error('Error fetching user:', error.message);
-    }
+  if (!res.ok) {
+    notFound();
   }
+
+  return res.json();
 }
 
-
-
-export default async function page({ params: { id } }) {
-  const post = await getPost(params.id)
+export default async function page({ params }) {
+  const user = await getUser(params.id);
 
   return (
     <div className="container mx-auto">
       <div className="flex flex-col justify-center items-center overflow-y-scroll px-4">
         <div className="text-center pt-10 pb-6 fixed top-0 left-0 w-full bg-white shadow-md z-10">
           <h3 className="text-xl text-purple-700 font-bold mb-4">
-            {post.username}
+            {user.username}
           </h3>
         </div>
         <div className="mb-32"></div>
@@ -57,7 +51,7 @@ export default async function page({ params: { id } }) {
             distinctio nobis voluptatum deleniti enim hic dolor, aliquid ea esse
             architecto non illum, eveniet delectus maxime nihil inventore
             temporibus ad ipsum. */}
-            {post.email}
+            {user.email}
           </p>
         </div>
       </div>

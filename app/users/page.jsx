@@ -1,9 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Toaster } from "react-hot-toast";
-import { registerValidation } from "../helper/validate";
-import convertToBase64 from "../helper/convert";
-import imgg from "../../public/imag.png";
 
 import styles from "../styles/post.module.css";
 
@@ -35,8 +30,8 @@ const page = async () => {
             <Link href={`/users/${post.id}`}>
               <p className="break-normal md:break-words">{post.email}</p>
 
-              <p className="mt-2">
-                Post by <span color="text-purple-700">{post.name}</span>
+              <p className="mt-4">
+                Post by <span className="text-purple-700">{post.name}</span>
               </p>
             </Link>
           </div>
