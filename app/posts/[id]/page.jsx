@@ -9,6 +9,9 @@ const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
 export async function generateStaticParams() {
 
   const res = await fetch(`${API_BASE_URL}/posts`)
+   if (!res.ok) {
+      console.error(`Failed to fetch posts. Status: ${res.status}`);
+    }
   const posts = await res.json();
 
   return posts.map((post) => ({
