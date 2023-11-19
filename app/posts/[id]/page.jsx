@@ -4,8 +4,9 @@ import styles from "../../styles/post.module.css";
 
 export const dynamicParams = true;
 
+const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
+
 export async function generateStaticParams() {
-  const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
 
   const res = await fetch(`${API_BASE_URL}/posts`)
   const posts = await res.json();
