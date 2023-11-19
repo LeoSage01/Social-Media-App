@@ -1,4 +1,5 @@
 import Link from "next/link";
+import notFound from "next/link";
 
 import styles from "../styles/post.module.css";
 
@@ -8,10 +9,17 @@ async function fetchPosts() {
       revalidate: 0,
     },
   });
-
+  
   await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second
 
-  return res.json();
+if (!res.ok) {
+      console.error(`Error fetching posts. Status: ${res.status}`);
+      
+      return {
+        notFound: true,
+      };
+    }
+  return res.text();
 }
 
 const page = async () => {
