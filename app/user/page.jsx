@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "../styles/post.module.css";
 
 async function fetchPosts() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+  const res = await fetch("https://assignment-api-spxd.onrender.com/api/posts", {
     next: {
       revalidate: 0,
     },
@@ -27,8 +27,8 @@ const page = async () => {
 
         {posts.map((post) => (
           <div key={post.id} className={styles.glass}>
-            <Link href={`/users/${post.id}`}>
-              <p className="break-normal md:break-words">{post.email}</p>
+            <Link href={`/post/${post.id}`}>
+              <p className="break-normal md:break-words">{post.body}</p>
 
               <p className="mt-4">
                 Post by <span className="text-purple-700">{post.name}</span>
@@ -41,6 +41,14 @@ const page = async () => {
           <p className="text-center">There are no posts yet!</p>
         )}
       </div>
+
+      <Link href="./create">
+        <div className="fixed bottom-0 left-0 w-full z-10 pb-10">
+          <div className=" border bg-purple-700 w-[200px] py-2 mx-auto rounded-lg text-gray-50 shadow-sm text-center">
+            Create new post
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };

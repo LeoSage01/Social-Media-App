@@ -1,91 +1,133 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import convertToBase64 from "../helper/convert";
 import pic from "../../public/imag.png";
+import pic2 from "../../public/image-back.png";
 
 import styles from "../styles/form.module.css";
 
 const page = () => {
   const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
+  const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [body, setBody] = useState("");
   const [file, setFile] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const onUpload = async (e) => {
     const base64 = await convertToBase64(e.target.files[0]);
+    setIsSelected(true);
+    toast.success("Image selected");
     setFile(base64);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-  //   const post = {
-  //     username,
-  //     body,
-  //     file,
-  //   };
+    if (!username) {
+      toast.error("Email Required...!");
+      setIsLoading(false);
+      return;
+    } else if (username.includes(" ")) {
+      toast.error("Invalid email...!");
+      setIsLoading(false);
+      return;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(username)) {
+      toast.error("Invalid email address...!");
+      setIsLoading(false);
+      return;
+    }
 
-  //   if(post.file === ""){
-  //     const res = await fetch(`${API_BASE_URL}/post`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(post),
-  //     });
-  //   } else {
-  //     const res = await fetch(`${API_BASE_URL}/createpost`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(post),
-  //     });
+    const post = {
+      username,
+      body,
+      file,
+    };
 
-  //   }
+    if (isSelected) {
+      const res = await fetch(`${API_BASE_URL}/post`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(post),
+      });
+    } else {
+      const res = await fetch(`${API_BASE_URL}/createpost`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(post),
+      });
+    }
 
-  //   if (res.status === 201) {
-  //       router.refresh()
-  //       router.push('/posts')
-  //   }
-  
-  // };
+    if (res.status === 201 || res.status === 200) {
+      setIsLoading(false);
+      setIsSelected(false);
+      toast.success("Post Successful!");
 
-  
+      router.refresh();
+      router.push("/posts");
+    }
+  };
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-center items-center h-screen">
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
+
+      <div className="flex justify-center my-auto items-center h-screen">
         <div
           className={styles.glass}
-          style={{ width: "45%", paddingTop: "3em" }}
+          style={{ width: "45%", paddingTop: "1em" }}
         >
-          <div className="title flex flex-col items-center mb-10">
-            <h4 className="text-2xl font-bold">Hello Again!</h4>
-            <span className="py-4  w-2/3 text-center text-gray-500">
-              Welcome back to our App
+          <div className="title flex flex-col items-center mb-2">
+            <h4 className="text-2xl font-bold">What's happening?</h4>
+            <span className="py-2 w-2/3 text-center text-gray-500">
+              Make a post
             </span>
           </div>
 
           <form className="py-1">
-            <div className="profile flex justify-center py-4">
-              <label htmlFor="profile">
-                <Image
-                  src={pic}
-                  className={`${styles.profile_img}`}
-                  alt="Picture of image icon"
-                />
-              </label>
+            {isSelected ? (
+              <div className="profile flex justify-center py-2">
+                <label htmlFor="profile">
+                  <Image
+                    src={pic}
+                    className={`${styles.profile_img} h-[150px] w-[150px]`}
+                    alt="Picture of image icon"
+                  />
+                </label>
 
-              <input
-                onChange={onUpload}
-                type="file"
-                id="profile"
-                name="profile"
-              />
-            </div>
-            <div className="textbox flex flex-col items-center gap-6">
+                <input
+                  onChange={onUpload}
+                  type="file"
+                  id="profile"
+                  name="profile"
+                />
+              </div>
+            ) : (
+              <div className="profile flex justify-center py-2">
+                <label htmlFor="profile">
+                  <Image
+                    src={pic2}
+                    className={`${styles.profile_img} h-[150px] w-[150px]`}
+                    alt="Picture of image icon"
+                  />
+                </label>
+
+                <input
+                  onChange={onUpload}
+                  type="file"
+                  id="profile"
+                  name="profile"
+                />
+              </div>
+            )}
+            <div className="textbox flex flex-col mt-2 items-center gap-4">
               <input
                 className={styles.textbox}
                 type="text"
@@ -95,16 +137,16 @@ const page = () => {
               />
               <textarea
                 className={styles.textbox}
-                placeholder="Add a post..."
+                placeholder="Add a comment..."
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
                 cols="30"
-                rows="5"
+                rows="4"
               ></textarea>
               <button
                 className={styles.btn}
                 type="submit"
-                onClick={console.log('hjk')}
+                onClick={handleSubmit}
               >
                 {isLoading && <span>Posting...</span>}
                 {!isLoading && <span>Post</span>}

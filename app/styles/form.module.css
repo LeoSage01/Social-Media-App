@@ -13,7 +13,7 @@
 }
 
 .textbox{
-    @apply border-0 px-5 py-2 rounded-xl w-3/4 shadow-sm ;
+    @apply border-0 px-2 md:px-5 py-2 rounded-xl w-3/4 shadow-sm ;
     @apply focus:outline-none;
 }
 

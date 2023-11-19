@@ -4,11 +4,11 @@
     box-shadow: 0 4px 30px #4747470b;
     backdrop-filter: blur(7.1px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    @apply border-4 border-gray-50 shrink-0 w-[100%] sm:w-[45%] rounded-3xl p-4 mb-5 px-7 ;
+    @apply border-4 border-gray-50 shrink-0 w-[100%] sm:w-[45%] rounded-3xl p-4 mb-5 px-2 md:px-7 ;
 }
 
 .img{
-    @apply border-4 border-gray-100 w-[px] mx-auto rounded-sm shadow-lg cursor-pointer;
+    @apply border-4 border-gray-100 mx-auto rounded-sm shadow-lg cursor-pointer;
     @apply hover:border-gray-200;
 }
 

@@ -18,3 +18,7 @@ body{
 input[type='file']{
     display: none;
 }
+
+text-area {
+    resize: none;
+}

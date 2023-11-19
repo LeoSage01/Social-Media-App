@@ -1,34 +1,62 @@
 "use client";
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
-import { registerValidation } from "../helper/validate";
 
 import styles from "../styles/form.module.css";
 
 const page = () => {
   const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
-
   const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/login`, {
-        username,
-        password,
+      if (!username) {
+        toast.error("Email is required!");
+        return;
+      } else if (username.includes(" ")) {
+        toast.error("Invalid email format!");
+        return;
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(username)) {
+        toast.error("Invalid email address!");
+        return;
+      }
+  
+      if (!password) {
+        toast.error("Password is required!");
+        return;
+      } else if (password.includes(" ")) {
+        toast.error("Invalid password format!");
+        return;
+      } else if (password.length < 4) {
+        toast.error("Password must be at least 4 characters long!");
+        return;
+      }
+  
+      toast.loading("Logging in..."); 
+      const res = await fetch(`${API_BASE_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
       });
-
-      // Handle success, maybe store the token securely, and redirect to the posts page
-      router.push("/posts");
+  
+      if (res.status === 200) {
+        toast.success('Login Successful');
+        router.push("/posts");
+      } else {
+        console.error("Login failed", res);
+        toast.error('Login failed');
+      }
     } catch (error) {
       console.error("Login failed", error);
+      toast.error('Login failed');
     }
   };
-
+  
   return (
     <div className="container mx-auto">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
@@ -36,7 +64,7 @@ const page = () => {
       <div className="flex justify-center items-center h-screen">
         <div
           className={styles.glass}
-          style={{ width: "45%", paddingTop: "3em" }}
+          style={{ width: "50%", paddingTop: "3em" }}
         >
           <div className="title flex flex-col items-center mb-10">
             <h4 className="text-2xl font-bold">Hello Again!</h4>
@@ -56,7 +84,7 @@ const page = () => {
               />
               <input
                 className={styles.textbox}
-                type="text"
+                type="password"
                 placeholder="Password*"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
