@@ -12,7 +12,7 @@ export async function generateStaticParams() {
       throw new Error(`Failed to fetch posts. Status: ${res.status}`);
     }
 
-    const posts = await res.json();
+    const posts = await res.text();
 
     return posts.map((post) => ({
       id: post.username,
@@ -30,7 +30,7 @@ async function getPost(id) {
       throw new Error(`Failed to fetch post ${id}. Status: ${res.status}`);
     }
 
-    return res.json();
+    return res.text();
   } catch (error) {
     console.error(`Error fetching post ${id}:`, error);
     return { notFound: true };
