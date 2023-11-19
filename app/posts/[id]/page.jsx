@@ -38,22 +38,32 @@ async function getPost(id) {
 }
 
 export default async function page({ params }) {
-  const post = await getPost(params.id);
+  try {
+    const post = await getPost(params.id);
 
-  return (
-    <div className="container mx-auto">
-      <div className="flex flex-col justify-center items-center overflow-y-scroll px-4">
-        <div className="text-center pt-10 pb-6 fixed top-0 left-0 w-full bg-white shadow-md z-10">
-          <h3 className="text-xl text-purple-700 font-bold mb-4">
-            {post.body}
-          </h3>
-        </div>
-        <div className="mb-32"></div>
+    if (post.notFound) {
+      // Handle not found case, e.g., redirect to a 404 page
+      return { notFound: true };
+    }
 
-        <div className={styles.glass}>
-          <p className="break-normal md:break-words">{post.username}</p>
+    return (
+      <div className="container mx-auto">
+        <div className="flex flex-col justify-center items-center overflow-y-scroll px-4">
+          <div className="text-center pt-10 pb-6 fixed top-0 left-0 w-full bg-white shadow-md z-10">
+            <h3 className="text-xl text-purple-700 font-bold mb-4">
+              {post.body}
+            </h3>
+          </div>
+          <div className="mb-32"></div>
+
+          <div className={styles.glass}>
+            <p className="break-normal md:break-words">{post.username}</p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    console.error("Error rendering page:", error);
+    return { notFound: true };
+  }
 }
