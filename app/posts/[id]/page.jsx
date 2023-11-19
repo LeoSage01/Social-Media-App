@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-
 import styles from "../../styles/post.module.css";
 
 export const dynamicParams = true;
@@ -7,32 +6,35 @@ export const dynamicParams = true;
 const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
 
 export async function generateStaticParams() {
-
-  const {res, error} = await fetch(`${API_BASE_URL}/posts`)
-   
-  if(error || !res) {
-    return {
-      notFound: true
+  try {
+    const res = await fetch(`${API_BASE_URL}/posts`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch posts. Status: ${res.status}`);
     }
+
+    const posts = await res.json();
+
+    return posts.map((post) => ({
+      id: post.username,
+    }));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return { notFound: true };
   }
-
-  const posts = await res.json();
-
-  return posts.map((post) => ({
-    id: post.username,
-  }));
 }
 
 async function getPost(id) {
-  const {res, error} = await fetch(`${API_BASE_URL}/posts/${id}`);
-
-  if(error || !res) {
-    return {
-      notFound: true
+  try {
+    const res = await fetch(`${API_BASE_URL}/posts/${id}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch post ${id}. Status: ${res.status}`);
     }
+
+    return res.json();
+  } catch (error) {
+    console.error(`Error fetching post ${id}:`, error);
+    return { notFound: true };
   }
-  
-  return res.json();
 }
 
 export default async function page({ params }) {
@@ -49,9 +51,7 @@ export default async function page({ params }) {
         <div className="mb-32"></div>
 
         <div className={styles.glass}>
-          <p className="break-normal md:break-words">
-            {post.username}
-          </p>
+          <p className="break-normal md:break-words">{post.username}</p>
         </div>
       </div>
     </div>
