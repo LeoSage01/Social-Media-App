@@ -6,7 +6,7 @@ import styles from "../styles/form.module.css";
 const GetStarted = () => {
   return (
     <div className="container mx-auto pt-4">
-      <div className="flex flex-col justify-center my-auto items-center">
+      <div className="flex flex-col justify-center mt-8 my-auto items-center">
         <Image
           src={Saly}
           className="h-[400px] w-[250px]"

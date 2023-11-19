@@ -90,7 +90,7 @@ const page = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
-                className={styles.btn}
+                className={`${styles.btn} mt-8`}
                 type="submit"
                 onClick={handleLogin}
               >

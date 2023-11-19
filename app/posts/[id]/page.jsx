@@ -16,11 +16,7 @@ export async function generateStaticParams() {
 }
 
 async function getPost(id) {
-  const res = await fetch(`${API_BASE_URL}/posts/${id}`, {
-    next: {
-      revalidate: 60,
-    },
-  });
+  const res = await fetch(`${API_BASE_URL}/posts/${id}`);
 
   if (!res.ok) {
     notFound();

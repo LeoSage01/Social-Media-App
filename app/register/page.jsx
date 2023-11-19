@@ -88,7 +88,7 @@ const page = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className={styles.btn} type="submit"  onClick={handleRegister}>
+                <button {`${styles.btn} mt-8`} type="submit"  onClick={handleRegister}>
                   Register
                 </button>
               </div>
