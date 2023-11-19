@@ -33,6 +33,7 @@ async function getPost(id) {
   }
   
   return res.json();
+}
 
 export default async function page({ params }) {
   const post = await getPost(params.id);
