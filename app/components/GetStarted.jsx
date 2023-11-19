@@ -5,17 +5,16 @@ import styles from "../styles/form.module.css";
 
 const GetStarted = () => {
   return (
-    <div className="container mx-auto h-screen">
-      <div className="flex justify-center my-auto items-center">
+    <div className="container mx-auto pt-4">
+      <div className="flex flex-col justify-center my-auto items-center">
         <Image
           src={Saly}
-          height={100}
-          width={100}
-          alt="User image, Saly "
+          className="h-[400px] w-[250px]"
+          alt="User image, Saly"
         />
-        <h2 className="text-2l font-bold mt-6 mb-2 text-center">Explire your creativity</h2>
-        <p className="text-center">Lorem ipsum, dolor sit amet consectetur</p>
-        <Link className={`${styles.btn} mt-8`} href="/login">
+        <h2 className="text-2xl font-bold mt-4 mb-2 text-center">Explore your creativity</h2>
+        <p className="text-center">A tool to explore and share moments with friends</p>
+        <Link className={`${styles.btn} mt-14 sm:mt-8`} href="/login">
           Get Stared
         </Link>
       </div>

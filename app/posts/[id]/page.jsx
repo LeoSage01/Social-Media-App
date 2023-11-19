@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   const posts = await res.json();
 
   return posts.map((post) => ({
-    id: post.username.toString(),
+    id: post.username,
   }));
 }
 
