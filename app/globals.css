@@ -19,6 +19,6 @@ input[type='file']{
     display: none;
 }
 
-text-area {
+textarea {
     resize: none;
 }
