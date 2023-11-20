@@ -93,7 +93,7 @@ const page = () => {
 
        <div className="flex justify-center items-center h-screen">
         <div
-          className={styles.glass}
+          className={`${styles.glass} max-w-[90%]`}
           style={{ width: "50%", paddingTop: "2em" }}
         >
           <div className="title flex flex-col items-center mb-2">
