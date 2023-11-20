@@ -88,10 +88,10 @@ const page = () => {
   };
 
   return (
-    <div className="container mx-auto w-[100%]">
+    <div className="container mx-auto">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
 
-      <div className="flex justify-center mx-4 bg-red-500 items-center h-screen">
+      <div className="flex justify-center items-center h-screen">
         <div
           className={styles.glass}
           style={{ width: "45%", paddingTop: "1em" }}
