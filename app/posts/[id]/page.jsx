@@ -7,9 +7,7 @@ export async function getPost(id) {
   const res = await fetch(`https://assignment-api-spxd.onrender.com/api/posts/${id}`);
 
   if (!res.ok) {
-     return {
-      notFound: true,
-    };
+    notFound();
   }
 
   return await res.json();
