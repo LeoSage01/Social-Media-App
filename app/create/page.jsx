@@ -88,7 +88,7 @@ const page = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-4 flex flex-col align-middle">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
 
        <div className="flex justify-center items-center h-screen">
