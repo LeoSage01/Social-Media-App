@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
@@ -51,27 +52,37 @@ const page = () => {
       file,
     };
 
-    if (isSelected) {
-      const res = await fetch(`${API_BASE_URL}/post`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(post),
-      });
-    } else {
-      const res = await fetch(`${API_BASE_URL}/createpost`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(post),
-      });
-    }
+    try {
+      let res;
+      if (isSelected) {
+        res = await fetch(`${API_BASE_URL}/post`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(post),
+        });
+      } else {
+        res = await fetch(`${API_BASE_URL}/createpost`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(post),
+        });
+      }
 
-    if (res.status === 201 || res.status === 200) {
+      if (res.status === 201 || res.status === 200) {
+        setIsLoading(false);
+        setIsSelected(false);
+        toast.success("Post Successful!");
+
+        router.refresh();
+        router.push("/posts");
+      } else {
+        toast.error("Failed to post. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error posting:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
       setIsLoading(false);
-      setIsSelected(false);
-      toast.success("Post Successful!");
-
-      router.refresh();
-      router.push("/posts");
     }
   };
 

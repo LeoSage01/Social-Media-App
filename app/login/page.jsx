@@ -7,7 +7,6 @@ import Link from "next/link";
 import styles from "../styles/form.module.css";
 
 const page = () => {
-  const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
   const router = useRouter();
 
   const [username, setUsername] = useState("");
@@ -38,7 +37,7 @@ const page = () => {
       }
   
       toast.loading("Logging in..."); 
-      const res = await fetch(`${API_BASE_URL}/login`, {
+      const res = await fetch('https://assignment-api-spxd.onrender.com/api/login', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

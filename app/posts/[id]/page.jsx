@@ -1,69 +1,38 @@
+"use client"
+import { useParams } from 'next/navigation'
 import { notFound } from "next/navigation";
 import styles from "../../styles/post.module.css";
 
-export const dynamicParams = true;
+export async function getPost(id) {
+  const res = await fetch(`https://assignment-api-spxd.onrender.com/api/posts/${id}`);
 
-const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
-
-export async function generateStaticParams() {
-  try {
-    const res = await fetch(`${API_BASE_URL}/posts`);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch posts. Status: ${res.status}`);
-    }
-
-    const posts = await res.text();
-
-    return posts.map((post) => ({
-      id: post.username,
-    }));
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    return { notFound: true };
+  if (!res.ok) {
+    notFound();
   }
+
+  return await res.json();
 }
 
-async function getPost(id) {
-  try {
-    const res = await fetch(`${API_BASE_URL}/posts/${id}`);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch post ${id}. Status: ${res.status}`);
-    }
+export default async function page() {
+  const params = useParams()
+  const post = await getPost(params.id);
 
-    return res.text();
-  } catch (error) {
-    console.error(`Error fetching post ${id}:`, error);
-    return { notFound: true };
-  }
-}
+  return (
+    <div className="container mx-auto">
+      <div className="flex flex-col justify-center items-center overflow-y-scroll px-4">
+        <div className="text-center pt-10 pb-6 fixed top-0 left-0 w-full bg-white shadow-md z-10">
+          <h3 className="text-xl text-purple-700 font-bold mb-4">
+            {post.title}
+          </h3>
+        </div>
+        <div className="mb-32"></div>
 
-export default async function page({ params }) {
-  try {
-    const post = await getPost(params.id);
-
-    if (post.notFound) {
-      // Handle not found case, e.g., redirect to a 404 page
-      return { notFound: true };
-    }
-
-    return (
-      <div className="container mx-auto">
-        <div className="flex flex-col justify-center items-center overflow-y-scroll px-4">
-          <div className="text-center pt-10 pb-6 fixed top-0 left-0 w-full bg-white shadow-md z-10">
-            <h3 className="text-xl text-purple-700 font-bold mb-4">
-              {post.body}
-            </h3>
-          </div>
-          <div className="mb-32"></div>
-
-          <div className={styles.glass}>
-            <p className="break-normal md:break-words">{post.username}</p>
-          </div>
+        <div className={styles.glass}>
+          <p className="break-normal md:break-words">{post.description}</p>
         </div>
       </div>
-    );
-  } catch (error) {
-    console.error("Error rendering page:", error);
-    return { notFound: true };
-  }
-}
+    </div>
+  );
+} 
+
+ 
