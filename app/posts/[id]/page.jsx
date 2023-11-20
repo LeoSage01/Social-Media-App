@@ -8,6 +8,7 @@ export async function getPost(id) {
 
   if (!res.ok) {
     notFound();
+    return;
   }
 
   return await res.json();
