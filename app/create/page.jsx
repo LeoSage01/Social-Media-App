@@ -88,7 +88,7 @@ const page = () => {
   };
 
   return (
-    <div className="container mx-4 flex flex-col justify-center items-center">
+    <div className="container mx-4 ">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
 
        <div className="flex justify-center items-center h-screen">
@@ -139,7 +139,7 @@ const page = () => {
                 />
               </div>
             )}
-            <div className="textbox flex flex-col mt-2 items-center gap-4">
+            <div className="textbox flex flex-col mt-2 px-2 items-center gap-4">
               <input
                 className={styles.textbox}
                 type="text"
