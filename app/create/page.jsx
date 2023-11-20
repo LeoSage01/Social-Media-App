@@ -5,6 +5,7 @@ import Image from "next/image";
 import 'dotenv/config'
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import convertToBase64 from "../helper/convert";
 import pic from "../../public/imag.png";
 import pic2 from "../../public/image-back.png";
 
