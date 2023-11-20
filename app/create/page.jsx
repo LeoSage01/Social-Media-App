@@ -143,7 +143,7 @@ const page = () => {
               <input
                 className={styles.textbox}
                 type="text"
-                placeholder="johndoe@gmail.com*"
+                placeholder="jondoe@gmail.com*"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
