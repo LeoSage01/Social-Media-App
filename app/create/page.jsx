@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import 'dotenv/config'
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import convertToBase64 from "../helper/convert";
@@ -11,7 +12,7 @@ import pic2 from "../../public/image-back.png";
 import styles from "../styles/form.module.css";
 
 const page = () => {
-  const API_BASE_URL = "https://assignment-api-spxd.onrender.com/api";
+  const URL = process.env.API_BASE_URL;
   const router = useRouter();
 
   const [username, setUsername] = useState("");
@@ -55,13 +56,13 @@ const page = () => {
     try {
       let res;
       if (isSelected) {
-        res = await fetch(`${API_BASE_URL}/post`, {
+        res = await fetch(`${URL}/posts`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(post),
         });
       } else {
-        res = await fetch(`${API_BASE_URL}/createpost`, {
+        res = await fetch(`${URL}/createpost`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(post),
