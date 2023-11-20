@@ -1,10 +1,13 @@
 "use client"
 import { useParams } from 'next/navigation'
 import { notFound } from "next/navigation";
+import 'dotenv/config'
 import styles from "../../styles/post.module.css";
+  
+const URL = process.env.API_BASE_URL;
 
 export async function getPost(id) {
-  const res = await fetch(`https://assignment-api-spxd.onrender.com/api/posts/${id}`);
+  const res = await fetch(`${URL}/posts/${id}`);
 
   if (!res.ok) {
     notFound();
