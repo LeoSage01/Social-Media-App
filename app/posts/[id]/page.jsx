@@ -10,7 +10,9 @@ export async function getPost(id) {
   const res = await fetch(`${URL}/posts/${id}`);
 
   if (!res.ok) {
-    notFound();
+    return {
+      notFound: true,
+    };
   }
 
   return await res.json();
