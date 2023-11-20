@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NotFound from "./not-found.jsx";
+import 'dotenv/config'
 import styles from "../styles/post.module.css";
+  
+const URL = process.env.API_BASE_URL;
 
 async function fetchPosts() {
   try {
     const res = await fetch(
-      "https://assignment-api-spxd.onrender.com/api/posts",
+      `${URL}/posts`,
       {
         next: {
           revalidate: 0,
