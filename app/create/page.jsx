@@ -91,10 +91,10 @@ const page = () => {
     <div className="container mx-auto">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
 
-      <div className="flex justify-center items-center h-screen">
+       <div className="flex justify-center items-center h-screen">
         <div
           className={styles.glass}
-          style={{ width: "45%", paddingTop: "1em" }}
+          style={{ width: "50%", paddingTop: "1em" }}
         >
           <div className="title flex flex-col items-center mb-2">
             <h4 className="text-2xl font-bold">What's happening?</h4>
