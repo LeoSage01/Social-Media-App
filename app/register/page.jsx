@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import axios from "axios";
+import 'dotenv/config'
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import styles from "../styles/form.module.css";
 
 const page = () => {
+  const URL = process.env.API_BASE_URL;
 
   const router = useRouter();
   const [username, setUsername] = useState("");
@@ -37,7 +38,7 @@ const page = () => {
         return;
       }
 
-      const res = await fetch('https://assignment-api-spxd.onrender.com/api/register', {
+      const res = await fetch(`${URL}api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
