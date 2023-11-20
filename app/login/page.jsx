@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import 'dotenv/config'
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 
