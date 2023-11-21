@@ -103,8 +103,9 @@ const page = () => {
             </span>
           </div>
           <form className="py-1">
+            <div className="textbox flex flex-col mt-2 items-center gap-4">
             {isSelected ? (
-              <div className="profile flex justify-center py-2">
+              <div className="profile flex justify-center">
                 <label htmlFor="profile">
                   <Image
                     src={pic}
@@ -139,7 +140,6 @@ const page = () => {
               </div>
             )}
 
-            <div className="textbox flex flex-col mt-2 items-center gap-4">
               <input
                 className={styles.textbox}
                 type="text"
