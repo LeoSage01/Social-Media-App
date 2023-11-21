@@ -97,7 +97,7 @@ const page = () => {
           style={{ width: "50%", paddingTop: "1em" }}
         >
            <div className="title flex flex-col items-center mb-2">
-            <h4 className="text-2xl font-bold">What's happening?</h4>
+            <h4 className="text-xl font-bold">What's happening?</h4>
             <span className="py-2 text-center text-gray-500">
               Make a post
             </span>
@@ -138,8 +138,8 @@ const page = () => {
                 />
               </div>
             )}
-{/*
-            <div className="textbox flex flex-col mt-2 px-2 items-center gap-4">
+
+            <div className="textbox flex flex-col mt-2 items-center gap-4">
               <input
                 className={styles.textbox}
                 type="text"
@@ -163,7 +163,7 @@ const page = () => {
                 {isLoading && <span>Posting...</span>}
                 {!isLoading && <span>Post</span>}
               </button>
-            </div> */}
+            </div> 
           </form> 
         </div>
       </div>
