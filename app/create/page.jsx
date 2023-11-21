@@ -93,7 +93,7 @@ const page = () => {
 
        <div className="flex justify-center items-center h-screen">
         <div
-          className={`${styles.glass} mx-auto `}
+          className={styles.glass}
           style={{ width: "50%", paddingTop: "1em" }}
         >
            <div className="title flex flex-col items-center mb-2">
