@@ -93,7 +93,7 @@ const page = () => {
 
        <div className="flex justify-center items-center h-screen">
         <div
-          className={`${styles.glass} mx-4`}
+          className={`${styles.glass} mx-auto `}
           style={{ width: "50%", paddingTop: "1em" }}
         >
            <div className="title flex flex-col items-center mb-2">
@@ -102,7 +102,6 @@ const page = () => {
               Make a post
             </span>
           </div>
-{/*
           <form className="py-1">
             {isSelected ? (
               <div className="profile flex justify-center py-2">
@@ -139,6 +138,7 @@ const page = () => {
                 />
               </div>
             )}
+{/*
             <div className="textbox flex flex-col mt-2 px-2 items-center gap-4">
               <input
                 className={styles.textbox}
@@ -163,8 +163,8 @@ const page = () => {
                 {isLoading && <span>Posting...</span>}
                 {!isLoading && <span>Post</span>}
               </button>
-            </div>
-          </form> */}
+            </div> */}
+          </form> 
         </div>
       </div>
     </div>
