@@ -96,13 +96,13 @@ const page = () => {
           className={`${styles.glass} mx-4`}
           style={{ width: "50%", paddingTop: "1em" }}
         >
-{/*           <div className="title flex flex-col items-center mb-2">
+           <div className="title flex flex-col items-center mb-2">
             <h4 className="text-2xl font-bold">What's happening?</h4>
-            <span className="py-2 w-2/3 text-center text-gray-500">
+            <span className="py-2 text-center text-gray-500">
               Make a post
             </span>
           </div>
-
+{/*
           <form className="py-1">
             {isSelected ? (
               <div className="profile flex justify-center py-2">
